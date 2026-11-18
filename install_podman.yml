@@ -1,5 +1,6 @@
 - name: Install Podman
-  hosts: all
+  hosts: podman
+  gather_facts: true
   become: true
 
   tasks:
