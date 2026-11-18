@@ -1,0 +1,19 @@
+- name: Install Podman
+  hosts: podman
+  become: true
+
+  tasks:
+    - name: Load vaulted credentials
+      ansible.builtin.assert:
+        that:
+          - ansible_os_family == "RedHat"
+          - ansible_distribution_major_version >= '8'
+        fail_msg: "Unsupported OS family. Please use a Red Hat-based distribution."
+    
+    - name: Install Podman on Red Hat-based systems
+      ansible.builtin.yum:
+        name:
+          - podman
+          - podman-docker
+        state: present
+      when: ansible_os_family == "RedHat"
