@@ -1,5 +1,5 @@
 - name: Install Podman
-  hosts: podman
+  hosts: all
   become: true
 
   tasks:
