@@ -9,7 +9,12 @@
         that:
           - ansible_os_family == "RedHat"
           - ansible_distribution_major_version | int >= 8
-        fail_msg: "Unsupported OS. Requires a Red Hat-based distribution, version 8 or later."
+        fail_msg: >-
+          Unsupported OS. Requires a Red Hat-based distribution, version 8 or later.
+          Detected on {{ inventory_hostname }}: hostname={{ ansible_hostname | default('unknown') }},
+          ip={{ ansible_default_ipv4.address | default('unknown') }},
+          os_family={{ ansible_os_family | default('unknown') }},
+          distribution={{ ansible_distribution | default('unknown') }} {{ ansible_distribution_version | default('') }}
     
     - name: Install Podman on Red Hat-based systems
       ansible.builtin.yum:
